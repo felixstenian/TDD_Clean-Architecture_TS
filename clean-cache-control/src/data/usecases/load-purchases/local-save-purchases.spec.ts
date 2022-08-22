@@ -16,7 +16,7 @@ const makeSut = (timestamp = new Date()): SutTypes => {
   }
 }
 
-describe('LocalLoadPurchases', () => {
+describe('LocalSavePurchases', () => {
   it('1. Should not delete or insert cache on sut.init', () => {
     const { cacheStore } = makeSut()
 
