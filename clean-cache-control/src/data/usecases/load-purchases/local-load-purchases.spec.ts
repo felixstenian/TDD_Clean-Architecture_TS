@@ -31,4 +31,14 @@ describe('LocalLoadPurchases', () => {
     expect(cacheStore.fetchKey).toBe('purchases')
   })
 
+  it('3. Should return empty list if load fails', async () => {
+    const { cacheStore, sut } = makeSut()
+    cacheStore.helperSimulateFetchError()
+    const purchases = await sut.loadAll()
+
+    expect(cacheStore.actions).toEqual([CacheStoreSpy.Action.fetch, CacheStoreSpy.Action.delete])
+    expect(cacheStore.deleteKey).toBe('purchases')
+    expect(purchases).toEqual([])
+  })
+
 })
