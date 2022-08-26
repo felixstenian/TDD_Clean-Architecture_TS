@@ -1,4 +1,4 @@
-import { SavePurchases } from '@/domain/usecases'
+import { LoadPurchases, SavePurchases } from '@/domain/usecases'
 import { CacheStore } from '../protocols/cache'
 
 export class CacheStoreSpy implements CacheStore {
@@ -7,6 +7,7 @@ export class CacheStoreSpy implements CacheStore {
   insertKey: string
   fetchKey: string
   insertValues: SavePurchases.Params[] = []
+  fetchResult: any
   
   delete(key: string): void {
     this.actions.push(CacheStoreSpy.Action.delete)
@@ -24,9 +25,10 @@ export class CacheStoreSpy implements CacheStore {
     this.insert(key, value)
   }
   
-  fetch(key: string): void {
+  fetch(key: string): any {
     this.actions.push(CacheStoreSpy.Action.fetch)
     this.fetchKey = key  
+    return this.fetchResult
   }
 
   helperSimulateDeteleError (): void {
